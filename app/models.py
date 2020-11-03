@@ -17,7 +17,7 @@ class User(db.Model,UserMixin):
     comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
 
 
-     @property
+    @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
 
