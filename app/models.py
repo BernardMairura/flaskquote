@@ -40,7 +40,7 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
-        
+
 
 class Blog(db.Model):
 
@@ -52,6 +52,19 @@ class Blog(db.Model):
     title = db.Column(db.String())
     comments = db.relationship('Comment',backref='blog',lazy='dynamic')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class Comment(db.Model):
+    __tablename__='comments'
+    
+    id = db.Column(db.Integer,primary_key=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
+    description = db.Column(db.Text)
+
+    
+    def __repr__(self):
+        return f"Comment : id: {self.id} comment: {self.description}"
     
 
 
