@@ -16,11 +16,11 @@ def index():
     View root page function that returns the index page and its data
     '''
     
-    title = 'Home'
+    title = 'welcome'
     pblog = Blog.query.filter_by(category="pblog")
     
 
-    return render_template('home.html', title = title, pblog = pblog)
+    return render_template('index.html', title = title, pblog = pblog)
 
 
 @main.route('/blogs/new/', methods = ['GET','POST'])
@@ -33,7 +33,7 @@ def new_blog():
         owner_id = current_user
         print(current_user._get_current_object().id)
         new_blog = Blog(owner_id =current_user._get_current_object().id, title = title,description=description)
-        db.session.add(new_pitch)
+        db.session.add(new_blog)
         db.session.commit()
         
         
