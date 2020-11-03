@@ -9,20 +9,21 @@ from flask.views import View,MethodView
 
 #views
 
-@main.route('/', methods = ['GET','POST'])
+@main.route('/')
 def index():
 
     '''
     View root page function that returns the index page and its data
     '''
-    blog = blog.query.filter_by().first()
+    
     title = 'Home'
+    pblog = Blog.query.filter_by(category="pblog")
     
 
-    return render_template('home.html', title = title, blog = blog)
+    return render_template('home.html', title = title, pblog = pblog)
 
 
-@main.route('/pitches/new/', methods = ['GET','POST'])
+@main.route('/blogs/new/', methods = ['GET','POST'])
 @login_required
 def new_blog():
     form = BlogForm()
@@ -40,7 +41,7 @@ def new_blog():
     return render_template('blog.html',form=form)
 
 
-@main.route('/comment/new/<int:pitch_id>', methods = ['GET','POST'])
+@main.route('/comment/new/<int:blog_id>', methods = ['GET','POST'])
 @login_required
 def new_comment(blog_id):
     form = CommentForm()

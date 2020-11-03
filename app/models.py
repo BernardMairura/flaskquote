@@ -3,6 +3,11 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import func
 from datetime import datetime
+from .import login_manager
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 class User(db.Model,UserMixin):
@@ -49,6 +54,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
     description = db.Column(db.String(), index = True)
+    category=db.Column(db.String(255),nullable=False)
     title = db.Column(db.String())
     comments = db.relationship('Comment',backref='blog',lazy='dynamic')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
