@@ -40,5 +40,18 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
+        
+
+class Blog(db.Model):
+
+    __tablename__ ='blogs'
+
+    id = db.Column(db.Integer, primary_key = True)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    description = db.Column(db.String(), index = True)
+    title = db.Column(db.String())
+    comments = db.relationship('Comment',backref='blog',lazy='dynamic')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
 
 
