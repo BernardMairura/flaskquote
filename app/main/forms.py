@@ -6,7 +6,7 @@ from wtforms.validators import Required,Email,EqualTo
 
 class BlogForm(FlaskForm):
 	title = StringField('Title', validators=[Required()])
-	description = TextAreaField("Select your desired pitch?",validators=[Required()])
+	description = TextAreaField("Type your desired quote?",validators=[Required()])
 	submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
