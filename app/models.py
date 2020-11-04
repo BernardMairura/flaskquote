@@ -2,7 +2,7 @@ from .import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import func
-from datetime import datetime
+from datetime import datetime   
 from .import login_manager
 
 @login_manager.user_loader
@@ -19,7 +19,9 @@ class User(db.Model,UserMixin):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     pass_secure = db.Column(db.String(255))
     blog = db.relationship('Blog', backref='user', lazy='dynamic')
-    comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
+    password_secure = db.Column(db.String(255))
 
 
     @property
@@ -54,7 +56,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
     description = db.Column(db.String(), index = True)
-    category=db.Column(db.String(255),nullable=False)
+    category=db.Column(db.String(255),nullable=True)
     title = db.Column(db.String())
     comments = db.relationship('Comment',backref='blog',lazy='dynamic')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -66,14 +68,14 @@ class Blog(db.Model):
     @classmethod
     def get_bloges(cls,id):
         blogs = Blog.query.filter_by(blog_id=id).all()
-        return bloges
+        return blogs
     def delete_post(self):
        db.session.delete(self)
        db.session.commit()
     
     def __repr__(self):
         return f'blog {self.description}'
-
+    
 
 class Comment(db.Model):
     __tablename__='comments'
