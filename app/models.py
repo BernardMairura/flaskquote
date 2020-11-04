@@ -65,7 +65,7 @@ class Blog(db.Model):
         db.session.commit()
     @classmethod
     def get_bloges(cls,id):
-        bloges = Bloges.query.filter_by(blog_id=id).all()
+        blogs = Blog.query.filter_by(blog_id=id).all()
         return bloges
     def delete_post(self):
        db.session.delete(self)
