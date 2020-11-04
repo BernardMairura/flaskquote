@@ -24,7 +24,7 @@ def index():
 @login_required
 def new_blog():
     form = BlogForm()
-    # my_updates = Update.query.filter_by(blog_id = blog.id)
+    my_updates = Update.query.filter_by(blog_id = blog.id)
     if form.validate_on_submit():
         description = form.description.data
         title = form.title.data
@@ -55,6 +55,8 @@ def new_comment(blog_id):
 
     all_comments = Comment.query.filter_by(blog_id = blog_id).all()
     return render_template('comments.html', form = form, comment = all_comments, blog = blog )
+
+    
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
 def update_profile(uname):
@@ -74,6 +76,7 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
+
 
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required
