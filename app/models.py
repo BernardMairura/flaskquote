@@ -60,6 +60,21 @@ class Blog(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+    @classmethod
+    def get_bloges(cls,id):
+        bloges = Bloges.query.filter_by(blog_id=id).all()
+        return bloges
+    def delete_post(self):
+       db.session.delete(self)
+       db.session.commit()
+    
+    def __repr__(self):
+        return f'blog {self.description}'
+
+
 class Comment(db.Model):
     __tablename__='comments'
     
