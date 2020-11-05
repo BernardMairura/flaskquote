@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/bernard/moringa_projects/blogg/virt/bin/python3.9",
+    "python.pythonPath": "venvironment/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
 }
